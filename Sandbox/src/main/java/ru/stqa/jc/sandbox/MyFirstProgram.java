@@ -1,4 +1,6 @@
-public class program1 {
+package ru.stqa.jc.sandbox;
+
+public class MyFirstProgram {
 
 public static void main(String[] args) {
 
