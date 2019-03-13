@@ -28,19 +28,19 @@ public class GroupCreationTests {
 
   @Test
   public void testGroupCreation() throws Exception {
-    gotoGroupPage("groups");
-    initGroupCreation("new");
+    gotoGroupPage();
+    initGroupCreation();
     fillGroupForm(new GroupData("test1", "test2", "test3"));
-    submitGroupCreation("submit");
-    returnToGroupPage("group page");
+    submitGroupCreation();
+    returnToGroupPage();
   }
 
-  private void gotoGroupPage(String groups) {
-    wd.findElement(By.linkText(groups)).click();
+  private void gotoGroupPage() {
+    wd.findElement(By.linkText("groups")).click();
   }
 
-  private void initGroupCreation(String s) {
-    wd.findElement(By.name(s)).click();
+  private void initGroupCreation() {
+    wd.findElement(By.name("new")).click();
   }
 
   private void fillGroupForm(GroupData groupData) {
@@ -55,23 +55,23 @@ public class GroupCreationTests {
     wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
   }
 
-  private void submitGroupCreation(String submit) {
-    wd.findElement(By.name(submit)).click();
+  private void submitGroupCreation() {
+    wd.findElement(By.name("submit")).click();
   }
 
-  private void returnToGroupPage(String s) {
-    wd.findElement(By.linkText(s)).click();
+  private void returnToGroupPage() {
+    wd.findElement(By.linkText("group page")).click();
   }
 
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
-    logout("Logout");
+    logout();
     wd.quit();
   }
 
-  private void logout(String logout) {
-    wd.findElement(By.linkText(logout)).click();
+  private void logout() {
+    wd.findElement(By.linkText("Logout")).click();
   }
 
   private boolean isElementPresent(By by) {

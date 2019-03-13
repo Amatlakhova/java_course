@@ -28,13 +28,13 @@ public class ContactCreationTests {
 
   @Test
   public void testContactCreationTests() throws Exception {
-    gotoAddNewContact("add new");
+    gotoAddNewContact();
     fillNewContactForm(new ContactInfo("Test", "Testing", "+35796095", "test@mailinator.com"));
-    submitForm("(//input[@name='submit'])[2]");
+    submitForm();
   }
 
-  private void gotoAddNewContact(String add_new) {
-    wd.findElement(By.linkText(add_new)).click();
+  private void gotoAddNewContact() {
+    wd.findElement(By.linkText("add new")).click();
   }
 
   private void fillNewContactForm(ContactInfo contactInfo) {
@@ -52,8 +52,8 @@ public class ContactCreationTests {
     wd.findElement(By.name("email")).sendKeys(contactInfo.getEmail());
   }
 
-  private void submitForm(String submit) {
-    wd.findElement(By.xpath(submit)).click();
+  private void submitForm() {
+    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
 
   @AfterMethod(alwaysRun = true)
