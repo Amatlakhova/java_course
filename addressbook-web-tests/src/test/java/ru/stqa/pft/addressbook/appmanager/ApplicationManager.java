@@ -48,6 +48,10 @@ public class ApplicationManager {
     return contactHelper;
   }
 
+  public void acceptAlert() {
+    wd.switchTo().alert().accept();
+  }
+
   public boolean isElementPresent(By by) {
     try {
       wd.findElement(by);
