@@ -10,8 +10,17 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() throws Exception {
     app.getNavigationHelper().gotoAddNewContact();
-    app.getContactHelper().fillNewContactForm(new ContactInfo("Test", "Testing", "+35796095", "test@mailinator.com", "test1"), true);
-    app.getContactHelper().submitForm();
+    app.getContactHelper().createContact(
+            new ContactInfo(
+                    "Test",
+                    "Testing",
+                    "+35796095",
+                    "test@mailinator.com",
+                    "test1"
+            ),
+            true
+    );
+    app.getNavigationHelper().gotoHomePage();
   }
 
 }
