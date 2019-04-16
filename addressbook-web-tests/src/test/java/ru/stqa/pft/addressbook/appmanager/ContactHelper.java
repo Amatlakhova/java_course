@@ -41,8 +41,8 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void editContact() {
-    click(By.xpath("//td[8]/a/img"));
+  public void editContact(int index) {
+    wd.findElements(By.xpath("//tr/td[8]/a")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -68,12 +68,10 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactInfo contact = new ContactInfo(id,
+      ContactInfo contact = new ContactInfo(
+              id,
               element.findElement(By.cssSelector("td:nth-child(3)")).getText(),
-              element.findElement(By.cssSelector("td:nth-child(2)")).getText(),
-              null,
-              null,
-              null
+              element.findElement(By.cssSelector("td:nth-child(2)")).getText()
       );
       contacts.add(contact);
     }

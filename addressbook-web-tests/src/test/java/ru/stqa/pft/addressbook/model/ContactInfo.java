@@ -32,6 +32,15 @@ public class ContactInfo {
     this.group = group;
   }
 
+  public ContactInfo(int id, String firstname, String lastname) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobile = null;
+    this.email = null;
+    this.group = null;
+  }
+
   public String getFirstname() {
     return firstname;
   }
