@@ -6,7 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactInfo;
 
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -16,7 +15,7 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() throws Exception {
     List<ContactInfo> before = app.getContactHelper().getContactList();
-    app.getNavigationHelper().gotoAddNewContact();
+    app.goTo().gotoAddNewContact();
     ContactInfo contact = new ContactInfo(
             "Test",
             "Testing",
@@ -25,7 +24,7 @@ public class ContactCreationTests extends TestBase {
             "test1"
     );
     app.getContactHelper().createContact(contact, true);
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<ContactInfo> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() + 1);
 
