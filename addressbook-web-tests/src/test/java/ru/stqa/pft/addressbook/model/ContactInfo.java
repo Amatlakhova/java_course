@@ -3,42 +3,41 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactInfo {
-  private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String mobile;
-  private final String email;
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
+  private String lastname;
+  private String mobile;
+  private String email;
   private String group;
 
-  public void setId(int id) {
+  public ContactInfo withId(int id) {
     this.id = id;
+    return this;
   }
 
-  public ContactInfo(String firstname, String lastname, String mobile, String email, String group) {
-    this.id = Integer.MAX_VALUE;
+  public ContactInfo withFirstname(String firstname) {
     this.firstname = firstname;
+    return this;
+  }
+
+  public ContactInfo withLastname(String lastname) {
     this.lastname = lastname;
+    return this;
+  }
+
+  public ContactInfo withMobile(String mobile) {
     this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+    return this;
   }
 
-  public ContactInfo(int id, String firstname, String lastname, String mobile, String email, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
+  public ContactInfo withEmail(String email) {
     this.email = email;
-    this.group = group;
+    return this;
   }
 
-  public ContactInfo(int id, String firstname, String lastname) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = null;
-    this.email = null;
-    this.group = null;
+  public ContactInfo withGroup(String group) {
+    this.group = group;
+    return this;
   }
 
   public String getFirstname() {
@@ -60,9 +59,8 @@ public class ContactInfo {
 
   public String getGroup() {
     return group;
-
-
   }
+
   @Override
   public String toString() {
     return "ContactInfo{" +
@@ -77,13 +75,14 @@ public class ContactInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactInfo that = (ContactInfo) o;
-    return Objects.equals(firstname, that.firstname) &&
+    return id == that.id &&
+            Objects.equals(firstname, that.firstname) &&
             Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname);
+    return Objects.hash(id, firstname, lastname);
   }
 
   public int getId() {

@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactInfo;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -33,48 +35,57 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value= '" + id + "']")).click();
   }
 
   public void deleteSelectedContacts() {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void editContact(int index) {
-    wd.findElements(By.xpath("//tr/td[8]/a")).get(index).click();
+  public void editContactById(int id) {
+    wd.findElement(By.cssSelector("a[href= 'edit.php?id=" + id + "']")).click();
   }
 
   public void submitContactModification() {
     click(By.xpath("//input[22]"));
   }
 
-  public boolean isThereAContact() {
-    return isElementPresent(By.name("selected[]"));
-  }
-
-  public void createContact(ContactInfo contact, boolean b) {
+  public void create(ContactInfo contact, boolean b) {
     fillNewContactForm(contact, true);
     submitForm();
+  }
+
+  public void modify(ContactInfo contact) {
+    editContactById(contact.getId());
+    fillNewContactForm(contact, false);
+    submitContactModification();
+  }
+
+  public void delete(ContactInfo contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContacts();
+  }
+
+  public Contacts all() {
+    Contacts contacts = new Contacts();
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=entry]"));
+    for (WebElement element : elements) {
+      String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+      String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      contacts.add(new ContactInfo().withId(id).withFirstname(firstName).withLastname(lastName));
+    }
+    return contacts;
+  }
+
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactInfo> getContactList() {
-    List<ContactInfo> contacts = new ArrayList<ContactInfo>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name=entry]"));
-    for (WebElement element : elements) {
-      String name = element.getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactInfo contact = new ContactInfo(
-              id,
-              element.findElement(By.cssSelector("td:nth-child(3)")).getText(),
-              element.findElement(By.cssSelector("td:nth-child(2)")).getText()
-      );
-      contacts.add(contact);
-    }
-    return contacts;
-  }
 }
