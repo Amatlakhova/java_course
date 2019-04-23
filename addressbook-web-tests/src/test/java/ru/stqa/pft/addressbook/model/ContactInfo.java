@@ -9,6 +9,10 @@ public class ContactInfo {
   private String mobile;
   private String email;
   private String group;
+  private String homePhone;
+  private String mobilePhone;
+  private String workPhone;
+
 
   public ContactInfo withId(int id) {
     this.id = id;
@@ -40,6 +44,21 @@ public class ContactInfo {
     return this;
   }
 
+  public ContactInfo withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactInfo withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactInfo withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
   public String getFirstname() {
     return firstname;
   }
@@ -59,6 +78,18 @@ public class ContactInfo {
 
   public String getGroup() {
     return group;
+  }
+
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   @Override
