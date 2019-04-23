@@ -12,7 +12,7 @@ public class ContactInfo {
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
-
+  private String allPhones;
 
   public ContactInfo withId(int id) {
     this.id = id;
@@ -59,6 +59,15 @@ public class ContactInfo {
     return this;
   }
 
+  public ContactInfo withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public int getId() {
+    return id;
+  }
+
   public String getFirstname() {
     return firstname;
   }
@@ -92,6 +101,12 @@ public class ContactInfo {
     return workPhone;
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+
+
   @Override
   public String toString() {
     return "ContactInfo{" +
@@ -114,10 +129,6 @@ public class ContactInfo {
   @Override
   public int hashCode() {
     return Objects.hash(id, firstname, lastname);
-  }
-
-  public int getId() {
-    return id;
   }
 
 }
