@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactInfo;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -84,12 +82,16 @@ public class ContactHelper extends HelperBase {
       String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
       String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
       String allPhones = element.findElement(By.cssSelector("td:nth-child(6)")).getText();
+      String address = element.findElement(By.cssSelector("td:nth-child(4)")).getText();
+      String allEmails = element.findElement(By.cssSelector("td:nth-child(5)")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       contactCache.add(new ContactInfo()
               .withId(id)
               .withFirstname(firstName)
               .withLastname(lastName)
               .withAllPhones(allPhones)
+              .withAddress(address)
+              .withAllEmails(allEmails)
       );
     }
     return new Contacts(contactCache);
@@ -102,6 +104,11 @@ public class ContactHelper extends HelperBase {
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+
     wd.navigate().back();
       return new ContactInfo()
               .withId(contact.getId())
@@ -109,7 +116,11 @@ public class ContactHelper extends HelperBase {
               .withLastname(lastname)
               .withHomePhone(home)
               .withMobilePhone(mobile)
-              .withWorkPhone(work);
+              .withWorkPhone(work)
+              .withAddress(address)
+              .withEmail(email)
+              .withEmail2(email2)
+              .withEmail3(email3);
 
   }
 

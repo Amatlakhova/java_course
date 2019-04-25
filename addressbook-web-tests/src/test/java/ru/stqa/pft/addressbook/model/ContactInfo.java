@@ -8,11 +8,15 @@ public class ContactInfo {
   private String lastname;
   private String mobile;
   private String email;
+  private String email2;
+  private String email3;
   private String group;
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
   private String allPhones;
+  private String address;
+  private String allEmails;
 
   public ContactInfo withId(int id) {
     this.id = id;
@@ -36,6 +40,16 @@ public class ContactInfo {
 
   public ContactInfo withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ContactInfo withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public ContactInfo withEmail3(String email3) {
+    this.email3 = email3;
     return this;
   }
 
@@ -64,6 +78,17 @@ public class ContactInfo {
     return this;
   }
 
+  public ContactInfo withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactInfo withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+
   public int getId() {
     return id;
   }
@@ -84,6 +109,12 @@ public class ContactInfo {
     return email;
   }
 
+  public String getEmail3() {
+    return email3;
+  }
+  public String getEmail2() {
+    return email2;
+  }
 
   public String getGroup() {
     return group;
@@ -103,6 +134,14 @@ public class ContactInfo {
 
   public String getAllPhones() {
     return allPhones;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
 
