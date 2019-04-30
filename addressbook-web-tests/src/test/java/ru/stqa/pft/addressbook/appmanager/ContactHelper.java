@@ -21,13 +21,16 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"), contactInfo.getLastname());
     type(By.name("mobile"), contactInfo.getMobile());
     type(By.name("email"), contactInfo.getEmail());
+    attach(By.name("photo"), contactInfo.getPhoto());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactInfo.getGroup());
+      if (contactInfo.getGroup() != null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactInfo.getGroup());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
     }
-  }
 
   public void submitForm() {
     click(By.xpath("(//input[@name='submit'])[2]"));
