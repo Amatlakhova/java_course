@@ -1,0 +1,20 @@
+<list>
+  <contact>
+    <firstname>Test 0</firstname>
+    <lastname>Testing 0</lastname>
+    <mobile>+357960950</mobile>
+    <email>test0@mailinator.com</email>
+  </contact>
+  <contact>
+    <firstname>Test 1</firstname>
+    <lastname>Testing 1</lastname>
+    <mobile>+357960951</mobile>
+    <email>test1@mailinator.com</email>
+  </contact>
+  <contact>
+    <firstname>Test 2</firstname>
+    <lastname>Testing 2</lastname>
+    <mobile>+357960952</mobile>
+    <email>test2@mailinator.com</email>
+  </contact>
+</list>
