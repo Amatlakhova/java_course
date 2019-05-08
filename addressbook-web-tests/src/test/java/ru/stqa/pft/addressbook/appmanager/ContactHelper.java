@@ -71,6 +71,19 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
   }
 
+  public void addToGroup(int id) {
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(id));
+    click(By.name("add"));
+  }
+
+  public void selectGroup(String name) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(name);
+  }
+
+  public void removeFromGroup() {
+    click(By.name("remove"));
+  }
+
   private Contacts contactCache = null;
 
 
@@ -141,6 +154,8 @@ public class ContactHelper extends HelperBase {
   public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
+
+
 }
 
 
