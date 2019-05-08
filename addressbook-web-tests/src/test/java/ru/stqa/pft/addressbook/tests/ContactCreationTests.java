@@ -5,6 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactInfo;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 
 import java.io.*;
@@ -38,6 +40,12 @@ public class ContactCreationTests extends TestBase {
 
   @Test(dataProvider = "validContacts")
   public void testContactCreation(ContactInfo contact) {
+    Groups groups = app.db().groups();
+    if (groups.size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
+    contact.inGroup(groups.iterator().next());
     Contacts before = app.db().contacts();
     app.goTo().addContact();
     app.contact().create(contact, true);
@@ -46,7 +54,7 @@ public class ContactCreationTests extends TestBase {
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
+    verifyContactListInUI();
   }
 
   @Test(enabled = false)
@@ -58,16 +66,21 @@ public class ContactCreationTests extends TestBase {
     System.out.println(photo.exists());
   }
 
-  @Test(enabled = false)
+  @Test
   public void testBadContactCreation() throws Exception {
-    Contacts before = app.contact().all();
-    app.goTo().addContact();
+    Groups groups = app.db().groups();
+    if (groups.size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+    }
     ContactInfo contact = new ContactInfo()
             .withFirstname("Test'")
             .withLastname("Testing")
             .withMobile("+35796095")
             .withEmail("test@mailinator.com")
-            .withGroup("test1");
+            .inGroup(groups.iterator().next());
+    Contacts before = app.contact().all();
+    app.goTo().addContact();
     app.contact().create(contact, true);
     app.goTo().gotoHomePage();
     assertThat(app.contact().count(), equalTo(before.size()));
