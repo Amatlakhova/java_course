@@ -24,10 +24,12 @@ public class ContactInfo {
   @Column(name = "lastname")
   private String lastname;
 
-  @Transient
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobile;
 
-  @Transient
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
 
   @Transient
@@ -43,8 +45,7 @@ public class ContactInfo {
   @Type(type = "text")
   private String homePhone;
 
-  @Column(name = "mobile")
-  @Type(type = "text")
+  @Transient
   private String mobilePhone;
 
   @Column(name = "work")
@@ -199,16 +200,6 @@ public class ContactInfo {
   }
 
 
-
-  @Override
-  public String toString() {
-    return "ContactInfo{" +
-            "id='" + id + '\'' +
-            ", firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            '}';
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -216,12 +207,25 @@ public class ContactInfo {
     ContactInfo that = (ContactInfo) o;
     return id == that.id &&
             Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(mobile, that.mobile) &&
+            Objects.equals(email, that.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, lastname);
+    return Objects.hash(id, firstname, lastname, mobile, email);
+  }
+
+  @Override
+  public String toString() {
+    return "ContactInfo{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", mobile='" + mobile + '\'' +
+            ", email='" + email + '\'' +
+            '}';
   }
 
 }

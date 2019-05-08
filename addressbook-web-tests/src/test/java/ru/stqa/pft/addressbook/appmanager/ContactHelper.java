@@ -21,7 +21,6 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"), contactInfo.getLastname());
     type(By.name("mobile"), contactInfo.getMobile());
     type(By.name("email"), contactInfo.getEmail());
-    attach(By.name("photo"), contactInfo.getPhoto());
 
     if (creation) {
       if (contactInfo.getGroup() != null) {
@@ -29,8 +28,8 @@ public class ContactHelper extends HelperBase {
       }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
-      }
     }
+  }
 
   public void submitForm() {
     click(By.xpath("(//input[@name='submit'])[2]"));
