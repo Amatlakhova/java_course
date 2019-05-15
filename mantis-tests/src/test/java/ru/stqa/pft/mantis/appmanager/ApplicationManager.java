@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
+import ru.stqa.pft.addressbook.appmanager.DbHelper;
 
 import java.io.File;
 import java.io.FileReader;
@@ -17,10 +18,13 @@ public class ApplicationManager {
   private WebDriver wd;
 
   private String browser;
+  private LoginHelper loginHelper;
   private RegistrationHelper registrationHelper;
+  private ResetPasswordHelper resetPasswordHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private DbHelper dbHelper;
 
 
   public ApplicationManager(String browser) {
@@ -61,6 +65,13 @@ public class ApplicationManager {
     return registrationHelper;
   }
 
+  public ResetPasswordHelper resetPassword() {
+    if (resetPasswordHelper == null) {
+      resetPasswordHelper = new ResetPasswordHelper(this);
+    }
+    return resetPasswordHelper;
+  }
+
   public WebDriver getDriver() {
     if (wd == null) {
       if (browser.equals(BrowserType.CHROME)) {
@@ -88,6 +99,20 @@ public class ApplicationManager {
       jamesHelper = new JamesHelper(this);
     }
     return jamesHelper;
+  }
+
+  public DbHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DbHelper();
+    }
+    return dbHelper;
+  }
+
+  public LoginHelper login() {
+    if (loginHelper == null) {
+      loginHelper = new LoginHelper(this);
+    }
+    return loginHelper;
   }
 }
 
