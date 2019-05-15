@@ -39,7 +39,7 @@ public class ApplicationManager {
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
     dbHelper = new DbHelper();
-    String seleniumServer = System.getProperty("selenium.server");
+    String seleniumServer = properties.getProperty("selenium.server");
 
     if (seleniumServer.equals("")) {
       if (browser.equals(BrowserType.CHROME)) {
