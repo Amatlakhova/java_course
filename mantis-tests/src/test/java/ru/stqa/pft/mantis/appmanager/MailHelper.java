@@ -18,8 +18,6 @@ public class MailHelper {
   public MailHelper(ApplicationManager app) {
     this.app = app;
     wiser = new Wiser();
-    wiser.setPort(8888);
-    wiser.setHostname("localhost.localdomain");
   }
 
   public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException {
