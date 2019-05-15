@@ -3,7 +3,9 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactInfo;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,23 +27,44 @@ public class AddContactToGroupTests extends TestBase {
       app.goTo().gotoHomePage();
     }
 
-    if (app.db().groups().size() == 0) {
-      app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test1"));
+    Groups groups = app.db().groups();
+
+    for (GroupData group : groups) {
+      if (group.getContacts().size() == 0) {
+        return;
+      }
     }
+
+    app.goTo().groupPage();
+    app.group().create(new GroupData().withName("test1"));
   }
 
   @Test
   public void testAddContactToGroup() {
-    GroupData group = app.db().groups().iterator().next();
+    Groups groups = app.db().groups();
+    GroupData selectedGroup = null;
+
+    for (GroupData group : groups) {
+      if (group.getContacts().size() == 0) {
+        selectedGroup = group;
+      }
+    }
     ContactInfo contact = app.db().contacts().iterator().next();
+    Contacts contacts = selectedGroup.getContacts();
+
     app.goTo().gotoHomePage();
     app.contact().selectContactById(contact.getId());
-    app.contact().addToGroup(group.getId());
+    app.contact().addToGroup(selectedGroup.getId());
     app.goTo().gotoHomePage();
 
-    group = app.db().groups().iterator().next();
+    groups = app.db().groups();
 
-    assertThat(group.getContacts().size() - 1, equalTo(group.getContacts().without(contact).size()));
+    for (GroupData group : groups) {
+      if (group.equals(selectedGroup)) {
+        selectedGroup = group;
+      }
+    }
+
+    assertThat(selectedGroup.getContacts(), equalTo(contacts.withAdded(contact)));
   }
 }
