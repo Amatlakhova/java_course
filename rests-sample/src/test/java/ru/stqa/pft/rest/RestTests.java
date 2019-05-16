@@ -19,7 +19,7 @@ public class RestTests {
 
   @Test
   public void testCreateIssue() throws IOException {
-    skipIfNotFixed(1280);
+    skipIfNotFixed(525);
     Set<Issue> oldIssues = getIssues();
     Issue newIssue = new Issue()
             .withSubject("Test issue")
@@ -37,6 +37,15 @@ public class RestTests {
     JsonElement parsed = new JsonParser().parse(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+  }
+
+  private Issue getIssue(int id) throws  IOException {
+    String json = getExecutor()
+            .execute(Request.Get(String.format("http://bugify.stqa.ru/api/issues/%s.json", id)))
+            .returnContent().asString();
+    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement issue = parsed.getAsJsonObject().getAsJsonArray("issues").get(0);
+    return new Gson().fromJson(issue, new TypeToken<Issue>() {}.getType());
   }
 
   private Executor getExecutor() {
@@ -60,12 +69,7 @@ public class RestTests {
   }
 
   private boolean isIssueOpen(int issueId) throws IOException {
-    Set<Issue> issues = getIssues();
-    for (Issue issue : issues) {
-      if (issue.getId() == issueId) {
-        return issue.getState() == 0 || issue.getState() == 1;
-      }
-    }
-    return false;
+    Issue issue = getIssue(issueId);
+    return issue.getState() == 0 || issue.getState() == 1;
   }
 }
