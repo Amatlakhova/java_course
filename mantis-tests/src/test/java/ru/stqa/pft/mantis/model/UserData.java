@@ -1,7 +1,7 @@
 package ru.stqa.pft.mantis.model;
 
 
-import com.google.gson.annotations.Expose;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +16,11 @@ public class UserData {
   @Column(name = "id")
   private int id = Integer.MAX_VALUE;
 
-  @Expose
+
   @Column(name = "username")
   private String name;
 
-  @Expose
+
   @Column(name = "email")
   private String email;
 
